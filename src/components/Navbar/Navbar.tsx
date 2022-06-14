@@ -140,7 +140,7 @@ const NAV_ITEMS: Array<NavItem> = [
               _hover={{
                 bg: 'pink.300',
               }}>
-              Sign Up
+              Sign U
             </Button>
           </Stack>
         </Flex>
