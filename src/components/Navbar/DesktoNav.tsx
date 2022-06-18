@@ -8,10 +8,10 @@ import {
     Popover,
     PopoverTrigger,
     PopoverContent,
-    useColorModeValue,
+    useColorModeValue, Input, InputGroup,InputLeftElement
   } from '@chakra-ui/react';
   import {
-    ChevronRightIcon,
+    ChevronRightIcon,SearchIcon
   } from '@chakra-ui/icons';
 
   import { NavItem } from "../../../interfaces/interfaces";
@@ -25,7 +25,7 @@ const DesktopNav = ({NAV_ITEMS}) => {
     const popoverContentBgColor = useColorModeValue('white', 'gray.800');
   
     return (
-      <Stack direction={'row'} spacing={4}>
+      <Stack direction={'row'}  spacing={4}>
         {NAV_ITEMS.map((navItem) => (
           <Box key={navItem.label}>
             <Popover trigger={'hover'} placement={'bottom-start'}>
@@ -60,8 +60,13 @@ const DesktopNav = ({NAV_ITEMS}) => {
                 </PopoverContent>
               )}
             </Popover>
+
+
+
           </Box>
         ))}
+
+
       </Stack>
     );
   };

@@ -9,10 +9,10 @@ import {
     Icon,
     Link,
     useColorModeValue,
-    useDisclosure,
+    useDisclosure, InputGroup, InputLeftElement,Input
   } from '@chakra-ui/react';
   import {
-    ChevronDownIcon,
+    ChevronDownIcon,SearchIcon
   } from '@chakra-ui/icons';
 
   import { NavItem } from "../../../interfaces/interfaces";
@@ -20,16 +20,19 @@ import {
 const MobileNav = ({items}) => {
       
     return (
-  //  
+      <>
+          
         <Stack
         bg={useColorModeValue('white', 'gray.800')}
         p={4}
         display={{ md: 'none' }}>
+          
         {items.map((navItem) => (
             
           <MobileNavItem key={navItem.label} {...navItem} />
         ))}
       </Stack>
+      </>
     );
   };
 
@@ -43,7 +46,13 @@ const MobileNav = ({items}) => {
         const { isOpen, onToggle } = useDisclosure();
       
         return (
+          <>
+      
           <Stack spacing={4} onClick={children && onToggle}>
+             
+             <Flex   display={{ base: "flex", md: "none" }} align="center"  >
+         
+        </Flex>
             <Flex
               py={2}
               as={Link}
@@ -86,5 +95,6 @@ const MobileNav = ({items}) => {
               </Stack>
             </Collapse>
           </Stack>
+          </>
         );
       };
