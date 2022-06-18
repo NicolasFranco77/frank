@@ -41,6 +41,9 @@ export default function Navbar() {
           borderColor={useColorModeValue("gray.200", "gray.900")}
           align={"center"}
           justify={"space-between"}
+          position={"fixed"}
+          zIndex={10}
+          width="100%"
         >
           <Flex
             // flex={{ base: 1, md: "auto" }}
