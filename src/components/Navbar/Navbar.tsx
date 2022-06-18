@@ -13,6 +13,13 @@ import {
   InputGroup,
   InputLeftElement,
   Input,
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
 } from "@chakra-ui/react";
 import { HamburgerIcon, SearchIcon, CloseIcon } from "@chakra-ui/icons";
 
@@ -23,9 +30,15 @@ import { NAV_ITEMS } from "./data";
 
 import MobileNav from "./MobileNav";
 import DesktopNav from "./DesktoNav";
+import { useRef } from "react";
+
+import CartCard from "../Cart/CartCard";
+
 
 export default function Navbar() {
-  const { isOpen, onToggle } = useDisclosure();
+  const { isOpen : isOpenMenu, onToggle : onToggleMenu } = useDisclosure();
+  const { isOpen, onOpen, onClose} = useDisclosure();
+  const btnRef = useRef();
 
   return (
     <>
@@ -51,9 +64,9 @@ export default function Navbar() {
             display={{ base: "flex", md: "none" }}
           >
             <IconButton
-              onClick={onToggle}
+              onClick={onToggleMenu}
               icon={
-                isOpen ? (
+                isOpenMenu ? (
                   <CloseIcon w={3} h={3} />
                 ) : (
                   <HamburgerIcon w={5} h={5} />
@@ -96,6 +109,9 @@ export default function Navbar() {
               aria-label={"Toggle Navigation"}
               icon={<FaShoppingCart />}
               size="lg"
+              ref={btnRef}
+           
+              onClick={onOpen}
             />
             <IconButton
               variant={"ghost"}
@@ -106,18 +122,45 @@ export default function Navbar() {
           </Stack>
         </Flex>
 
-        <Collapse in={isOpen} animateOpacity>
+        <Collapse in={isOpenMenu} animateOpacity>
           <MobileNav items={NAV_ITEMS} />
         </Collapse>
       </Box>
       <Flex display={{ base: "flex", md: "none" }}>
-        <form style={{width:"100%"}}>
+        <form style={{ width: "100%" }}>
           <InputGroup width="full">
             <InputLeftElement pointerEvents="none" children={<SearchIcon />} />
-            <Input placeholder="Search..."   />
+            <Input placeholder="Search..." />
           </InputGroup>
         </form>
       </Flex>
+
+
+      <Drawer
+        isOpen={isOpen}
+        placement='right'
+        onClose={onClose}
+        finalFocusRef={btnRef}
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>Cart</DrawerHeader>
+
+          <DrawerBody>
+            <CartCard />
+            <CartCard />
+          </DrawerBody>
+
+          <DrawerFooter>
+            <Button variant='outline' mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button colorScheme='blue'>Save</Button>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+
     </>
   );
 }

@@ -15,14 +15,14 @@ const Home: NextPage = () => {
       <Navbar />
       <Carousel />
       
-      {/* <Grid templateColumns="15%  85%"  py={10}>
-        <GridItem bgColor="yellow.300">
+      <Grid templateColumns="15%  85%"  py={10}>
+        <GridItem ml={3} mr={3} border={"1px"}>
          
-        </GridItem> */}
-        {/* <GridItem> */}
+        </GridItem> 
+         <GridItem>
           <ProductsList />
-        {/* </GridItem>
-      </Grid> */}
+      </GridItem>
+      </Grid> 
       <Footer />
     </>
   );
