@@ -1,16 +1,6 @@
 import React from "react";
-import {
-  Box,
-  IconButton,
-  useBreakpointValue,
-  Stack,
-  Heading,
-  Text,
-  Container,
-} from "@chakra-ui/react";
-// Here we have used react-icons package for the icons
+import { Box, IconButton, useBreakpointValue } from "@chakra-ui/react";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
-// And react-slick as our Carousel Lib
 import Slider from "react-slick";
 
 // Settings for the slider
@@ -27,17 +17,11 @@ const settings = {
 };
 
 export default function Carousel() {
-  // As we have used custom buttons, we need a reference variable to
-  // change the state
   const [slider, setSlider] = React.useState<Slider | null>(null);
 
-  // These are the breakpoints which changes the position of the
-  // buttons as the screen size changes
   const top = useBreakpointValue({ base: "90%", md: "50%" });
   const side = useBreakpointValue({ base: "30%", md: "40px" });
 
-  // This list contains all the data for carousels
-  // This can be static or loaded from a server
   const cards = [
     {
       title: "Design Projects 1",
@@ -115,25 +99,7 @@ export default function Carousel() {
             backgroundRepeat="no-repeat"
             backgroundSize="cover"
             backgroundImage={`url(${card.image})`}
-          >
-            {/* This is the block you need to change, to customize the caption */}
-            <Container size="container.lg" height="600px" position="relative">
-              {/* <Stack
-                spacing={6}
-                w={'full'}
-                maxW={'lg'}
-                position="absolute"
-                top="50%"
-                transform="translate(0, -50%)">
-                <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
-                  {card.title}
-                </Heading>
-                <Text fontSize={{ base: 'md', lg: 'lg' }} color="GrayText">
-                  {card.text}
-                </Text>
-              </Stack> */}
-            </Container>
-          </Box>
+          ></Box>
         ))}
       </Slider>
     </Box>

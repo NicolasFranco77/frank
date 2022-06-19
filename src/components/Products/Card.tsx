@@ -85,7 +85,7 @@ function ProductAddToCart() {
         />
 
         <Box p="6">
-          <Box d="flex" alignItems="baseline">
+          <Box display="flex" alignItems="baseline">
             {data.isNew && (
               <Badge rounded="full" px="2" fontSize="0.8em" colorScheme="red">
                 New

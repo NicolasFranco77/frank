@@ -1,3 +1,12 @@
+import Link from "next/link";
+import { useRef } from "react";
+
+//components
+import MobileNav from "./MobileNav";
+import DesktopNav from "./DesktoNav";
+import CartCard from "../Cart/CartCard";
+
+//libraries
 import {
   Box,
   Flex,
@@ -9,7 +18,6 @@ import {
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
-  Icon,
   InputGroup,
   InputLeftElement,
   Input,
@@ -22,22 +30,15 @@ import {
   DrawerCloseButton,
 } from "@chakra-ui/react";
 import { HamburgerIcon, SearchIcon, CloseIcon } from "@chakra-ui/icons";
-
 import { FaShoppingCart, FaUserAlt } from "react-icons/fa";
 
-import { NavItem } from "../../../interfaces/interfaces";
+//data
 import { NAV_ITEMS } from "./data";
 
-import MobileNav from "./MobileNav";
-import DesktopNav from "./DesktoNav";
-import { useRef } from "react";
-
-import CartCard from "../Cart/CartCard";
-
-
 export default function Navbar() {
-  const { isOpen : isOpenMenu, onToggle : onToggleMenu } = useDisclosure();
-  const { isOpen, onOpen, onClose} = useDisclosure();
+  const { isOpen: isOpenMenu, onToggle: onToggleMenu } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const btnRef = useRef();
 
   return (
@@ -47,6 +48,7 @@ export default function Navbar() {
           bg={useColorModeValue("white", "gray.800")}
           color={useColorModeValue("gray.600", "white")}
           minH={"60px"}
+          position={"fixed"}
           py={{ base: 2 }}
           px={{ base: 4 }}
           borderBottom={1}
@@ -54,15 +56,10 @@ export default function Navbar() {
           borderColor={useColorModeValue("gray.200", "gray.900")}
           align={"center"}
           justify={"space-between"}
-          position={"fixed"}
           zIndex={10}
           width="100%"
         >
-          <Flex
-            // flex={{ base: 1, md: "auto" }}
-            // ml={{ base: -2 }}
-            display={{ base: "flex", md: "none" }}
-          >
+          <Flex display={{ base: "flex", md: "none" }}>
             <IconButton
               onClick={onToggleMenu}
               icon={
@@ -77,55 +74,66 @@ export default function Navbar() {
             />
           </Flex>
 
+          {/*Logo  */}
           <Flex justify={{ base: "start", md: "start" }}>
-            <Text
-              textAlign={useBreakpointValue({ base: "center", md: "left" })}
-              fontFamily={"heading"}
-              color={useColorModeValue("gray.800", "white")}
-            >
-              F R A N K
-            </Text>
+            <Link href="/">
+              <Text
+                cursor={"pointer"}
+                textAlign={useBreakpointValue({ base: "center", md: "left" })}
+                fontFamily={"heading"}
+                color={useColorModeValue("gray.800", "white")}
+              >
+                F R A N K
+              </Text>
+            </Link>
           </Flex>
 
+          {/* Desktop Navbar */}
           <Flex display={{ base: "none", md: "flex" }} justify="center">
             <DesktopNav NAV_ITEMS={NAV_ITEMS} />
           </Flex>
 
           <Stack justify={"flex-end"} direction={"row"} spacing={6}>
+            {/* Search */}
             <Flex display={{ base: "none", md: "flex" }} align="center">
-              <form>
-                <InputGroup>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    children={<SearchIcon />}
-                  />
-                  <Input placeholder="Search..." />
-                </InputGroup>
-              </form>
+              <InputGroup>
+                <InputLeftElement
+                  pointerEvents="none"
+                  children={<SearchIcon />}
+                />
+                <Input placeholder="Search..." />
+              </InputGroup>
             </Flex>
 
+            {/* Cart Icon */}
             <IconButton
               variant={"ghost"}
               aria-label={"Toggle Navigation"}
               icon={<FaShoppingCart />}
               size="lg"
               ref={btnRef}
-           
               onClick={onOpen}
             />
-            <IconButton
-              variant={"ghost"}
-              aria-label={"Toggle Navigation"}
-              icon={<FaUserAlt />}
-              size="lg"
-            />
+
+            {/* UserIcon */}
+            <Link href="/login">
+              <IconButton
+                variant={"ghost"}
+                aria-label={"Toggle Navigation"}
+                icon={<FaUserAlt />}
+                size="lg"
+              />
+            </Link>
           </Stack>
         </Flex>
 
+        {/* Mobile Navbar */}
         <Collapse in={isOpenMenu} animateOpacity>
           <MobileNav items={NAV_ITEMS} />
         </Collapse>
       </Box>
+
+      {/* Mobile Search */}
       <Flex display={{ base: "flex", md: "none" }}>
         <form style={{ width: "100%" }}>
           <InputGroup width="full">
@@ -135,10 +143,10 @@ export default function Navbar() {
         </form>
       </Flex>
 
-
+      {/* Cart */}
       <Drawer
         isOpen={isOpen}
-        placement='right'
+        placement="right"
         onClose={onClose}
         finalFocusRef={btnRef}
       >
@@ -153,14 +161,13 @@ export default function Navbar() {
           </DrawerBody>
 
           <DrawerFooter>
-            <Button variant='outline' mr={3} onClick={onClose}>
+            <Button variant="outline" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme='blue'>Save</Button>
+            <Button colorScheme="blue">Save</Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
-
     </>
   );
 }
