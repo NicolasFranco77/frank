@@ -17,8 +17,19 @@ import {
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
+import { auth } from "../firebase/firebase";
+import {onAuthStateChanged} from "firebase/auth"
+
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+
+ 
+
+  onAuthStateChanged(auth, (currentUser) => {
+    if (currentUser) {
+      console.log("logeado desde login reeey");
+    }
+  });
 
   return (
     <Flex
