@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 //components
 import MobileNav from "./MobileNav";
 import DesktopNav from "./DesktoNav";
-import CartCard from "../Cart/CartCard";
+import CartContainer from "../Cart/CartContainer";
 
 //libraries
 import {
@@ -12,7 +12,6 @@ import {
   Flex,
   Text,
   IconButton,
-  Button,
   Stack,
   Collapse,
   useColorModeValue,
@@ -21,16 +20,9 @@ import {
   InputGroup,
   InputLeftElement,
   Input,
-  Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
 } from "@chakra-ui/react";
 import { HamburgerIcon, SearchIcon, CloseIcon } from "@chakra-ui/icons";
-import { FaShoppingCart, FaUserAlt } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
 
 //data
 import { NAV_ITEMS } from "./data";
@@ -101,7 +93,7 @@ export default function Navbar() {
                   pointerEvents="none"
                   children={<SearchIcon />}
                 />
-                <Input placeholder="Search..." />
+                <Input placeholder="Buscar..." />
               </InputGroup>
             </Flex>
 
@@ -114,16 +106,6 @@ export default function Navbar() {
               ref={btnRef}
               onClick={onOpen}
             />
-
-            {/* UserIcon */}
-            <Link href="/login">
-              <IconButton
-                variant={"ghost"}
-                aria-label={"Toggle Navigation"}
-                icon={<FaUserAlt />}
-                size="lg"
-              />
-            </Link>
           </Stack>
         </Flex>
 
@@ -144,30 +126,7 @@ export default function Navbar() {
       </Flex>
 
       {/* Cart */}
-      <Drawer
-        isOpen={isOpen}
-        placement="right"
-        onClose={onClose}
-        finalFocusRef={btnRef}
-      >
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader>Cart</DrawerHeader>
-
-          <DrawerBody>
-            <CartCard />
-            <CartCard />
-          </DrawerBody>
-
-          <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme="blue">Save</Button>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
+      <CartContainer isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
     </>
   );
 }

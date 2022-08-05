@@ -1,29 +1,26 @@
-import React from 'react'
-import ProductAddToCart from "./Card"
+import React from "react";
+import {data} from "./data"
+import ProductCard from "./ProductCard";
 
-import {  SimpleGrid  } from '@chakra-ui/react'
+import { SimpleGrid } from "@chakra-ui/react";
+
 
 
 const ProductsList = () => {
   return (
+    <SimpleGrid
+      columns={4}
+      spacing={2}
+      minChildWidth="300px"
+      justifyItems={"center"}
+    >
+      {/* <ProductCard /> */}
 
- <SimpleGrid  columns={4} spacing={2} minChildWidth='300px'justifyItems={"center"}  >
-    <ProductAddToCart/>
-    <ProductAddToCart/>
-    <ProductAddToCart/>
-    <ProductAddToCart/>
-    <ProductAddToCart/>
-    <ProductAddToCart/>
-    <ProductAddToCart/>
-    <ProductAddToCart/>
-    <ProductAddToCart/>
-    <ProductAddToCart/>
+      {data.map((product, i) => (
+        <ProductCard key={i} data={product} />
+      ))}
+    </SimpleGrid>
+  );
+};
 
- </SimpleGrid>
-    
-    
- 
-  )
-}
-
-export default ProductsList
+export default ProductsList;

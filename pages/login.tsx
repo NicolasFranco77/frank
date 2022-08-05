@@ -12,24 +12,19 @@ import {
   Heading,
   Text,
   useColorModeValue,
-  Link,
-} from "@chakra-ui/react";
-import { useState } from "react";
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
-import { auth } from "../firebase/firebase";
-import {onAuthStateChanged} from "firebase/auth"
+} from "@chakra-ui/react";
+
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import Link from "next/link";
+
 
 export default function Login() {
-  const [showPassword, setShowPassword] = useState(false);
 
- 
 
-  onAuthStateChanged(auth, (currentUser) => {
-    if (currentUser) {
-      console.log("logeado desde login reeey");
-    }
-  });
+
+
+  
 
   return (
     <Flex
@@ -41,7 +36,8 @@ export default function Login() {
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
           <Heading fontSize={"4xl"} textAlign={"center"}>
-            Sign up
+          <Link href="/">Link</Link>
+          "Hola"
           </Heading>
           <Text fontSize={"lg"} color={"gray.600"}>
             to enjoy all of our cool features ✌️
@@ -103,7 +99,7 @@ export default function Login() {
             </Stack>
             <Stack pt={6}>
               <Text align={"center"}>
-                Already a user? <Link color={"blue.400"}>Login</Link>
+                {/* Already a user? <Link color={"blue.400"}>Login</Link> */}
               </Text>
             </Stack>
           </Stack>

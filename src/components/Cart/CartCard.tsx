@@ -6,19 +6,21 @@ import {
   Text,
   Stack,
   Image,
+  Button,
 } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
 
-const IMAGE =
-  "https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80";
+import { removeItem } from "../../features/cartSlice";
 
-export default function CartCard() {
+export default function CartCard({ imageURL, name, price, id }) {
+  const dispatch = useDispatch();
+
   return (
-    <Center py={12}  >
+    <Center py={12}>
       <Box
         role={"group"}
         p={6}
         maxW={"330px"}
-       
         w={"full"}
         bg={useColorModeValue("white", "gray.800")}
         boxShadow={"2xl"}
@@ -39,7 +41,7 @@ export default function CartCard() {
             pos: "absolute",
             top: 5,
             left: 0,
-            backgroundImage: `url(${IMAGE})`,
+            backgroundImage: `url(${imageURL})`,
             filter: "blur(15px)",
             zIndex: -1,
           }}
@@ -54,22 +56,28 @@ export default function CartCard() {
             height={230}
             width={282}
             objectFit={"cover"}
-            src={IMAGE}
+            src={imageURL}
+            alt={name}
           />
         </Box>
         <Stack pt={10} align={"center"}>
-          <Text color={"gray.500"} fontSize={"sm"} textTransform={"uppercase"}>
-            Brand
-          </Text>
+          <Button
+            variant="outline"
+            size="xs"
+            onClick={() => dispatch(removeItem(id))}
+          >
+            Remove
+          </Button>
+
           <Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
             Nice Chair, pink
           </Heading>
           <Stack direction={"row"} align={"center"}>
             <Text fontWeight={800} fontSize={"xl"}>
-              $57
+              {price}
             </Text>
             <Text textDecoration={"line-through"} color={"gray.600"}>
-              $199
+              {price}
             </Text>
           </Stack>
         </Stack>
